@@ -8,6 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Next:
+//	 加入Redis
+
 // http://localhost:8080/api/dicom/meeting138
 // const DICOMServerURL string = "http://47.93.132.62/api/getByFilmNo" // test
 const DICOMServerURL string = "http://dicomup.tongxinyiliao.com/api/getByFilmNo"

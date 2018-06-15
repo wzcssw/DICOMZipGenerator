@@ -57,8 +57,7 @@ func DownloadSeriesFile(series []Series, dir string, concurrent int) {
 	// 压缩文件
 	fmt.Println("zipping...")
 	os.MkdirAll(ZipsDir, os.ModePerm)
-	eee := Zipit(DownloadsDir+dir, ZipsDir+dir+".zip")
-	fmt.Println(eee)
+	Zipit(DownloadsDir+dir, ZipsDir+dir+".zip")
 
 	// 删除源文件
 	fmt.Println("deleting origin files...")
