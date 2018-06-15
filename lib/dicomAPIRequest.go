@@ -1,13 +1,11 @@
 package lib
 
 import (
-	"bytes"
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"net/url"
 	"strings"
 	"time"
 )
@@ -38,33 +36,15 @@ func sign(params map[string]string) string {
 }
 
 func urlencode(data map[string]string) string {
-	var buf bytes.Buffer
-	// for k, v := range data {
-	// 	buf.WriteString(url.QueryEscape(k))
-	// 	// buf.WriteString(k)
-	// 	buf.WriteByte('=')
-	// 	buf.WriteString(url.QueryEscape(v))
-	// 	// buf.WriteString(v)
-	// 	buf.WriteByte('&')
-	// }
-	buf.WriteString(url.QueryEscape("app_key"))
-	buf.WriteByte('=')
-	buf.WriteString(url.QueryEscape(data["app_key"]))
-	buf.WriteByte('&')
-	buf.WriteString(url.QueryEscape("timestamp"))
-	buf.WriteByte('=')
-	buf.WriteString(url.QueryEscape(data["timestamp"]))
-	buf.WriteByte('&')
-	buf.WriteString(url.QueryEscape("filmno"))
-	buf.WriteByte('=')
-	buf.WriteString(url.QueryEscape(data["filmno"]))
-	buf.WriteByte('&')
-	buf.WriteString(url.QueryEscape("sign"))
-	buf.WriteByte('=')
-	buf.WriteString(url.QueryEscape(data["sign"]))
+	var r http.Request
 
-	s := buf.String()
-	return s
+	r.ParseForm()
+	for k, v := range data {
+		r.Form.Add(k, v)
+	}
+	bodystr := strings.TrimSpace(r.Form.Encode())
+
+	return bodystr
 }
 
 // GetMD5Hash G
